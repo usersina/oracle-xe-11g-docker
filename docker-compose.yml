@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  oracle-db:
+    image: oracleinanutshell/oracle-xe-11g
+    container_name: oracle-db
+    ports:
+      - 1521:1521
+    environment:
+      - ORACLE_ALLOW_REMOTE=true
+    # volumes: # Needs a custom image
+    #   - ./tmp/oracledb:/u01/app/oracle
+    networks:
+      - oracle
+
+  sqldeveloper:
+    image: marcelhuberfoo/sqldeveloper
+    container_name: sqldeveloper
+    environment:
+      - DISPLAY=${MY_DISPLAY}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./tmp/sqldeveloper:/data
+    networks:
+      - oracle
+
+networks:
+  oracle:
+    name: oracle-network
+    driver: bridge
