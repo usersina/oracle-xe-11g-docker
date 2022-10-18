@@ -3,23 +3,22 @@
 ## repository's YAML files. Is is sort of a habit of mine to create a Makefile.
 ## 
 ## ----------------------------------------- Variables -----------------------------------------
-## Variables:
-## - OS_TYPE: The type of the OS to run the containers for. Either "windows" or "unix". (required)
+## Computed Variables: These are automatically set
+## - CV_OSTYPE: The type of the OS to run the containers for. Either "windows" or "unix".
 ## 
-OS_TYPE = windows
+CV_OSTYPE = $(shell ./conf/get_os.sh)
 ## ----------------------------------------- Commands -----------------------------------------
 help:			## Show this help
 	@sed -ne '/@sed/!s/## //p' $(MAKEFILE_LIST)
 
-start: check-args		## Run Oracle and SQLDeveloper
-	docker compose --env-file conf/$(OS_TYPE).env up -d
+start: set_os		## Run Oracle and SQLDeveloper
+	docker compose --env-file conf/$(CV_OSTYPE).env up
 
-stop: check-args	## Stop Oracle and SQLDeveloper
-	docker compose --env-file conf/$(OS_TYPE).env down
+stop: set_os		## Stop Oracle and SQLDeveloper (WARNING - Deletes database)
+	docker compose --env-file conf/$(CV_OSTYPE).env down
 
 shell:			## Run a shell in the oracle container
 	docker exec -it oracle-db /bin/bash
-
 
 .DEFAULT:
 	@echo Unkown command $@, try make help
@@ -27,14 +26,11 @@ shell:			## Run a shell in the oracle container
 ## ---------------------------------------------------------------------------------------------
 ## 
 ## ----------------------------------------- Guards --------------------------------------------
-check-args:		## Check whether OS_TYPE is set correctly
-ifndef OS_TYPE
-	$(error Please specify the OS_TYPE "windows | unix")
-endif
-ifeq ($(OS_TYPE), windows)
+set_os:		## Check whether OS_TYPE is set correctlys
+ifeq ($(CV_OSTYPE), windows)
 	@printf "Running the containers in an x-server compatible with Windows...\n"
-else ifeq ($(OS_TYPE), unix)
+else ifeq ($(CV_OSTYPE), unix)
 	@printf "Running the containers in an x-server compatible with Unix/Linux...\n"
 else
-	$(error Invalid OS_TYPE $(OS_TYPE)! Only "windows" and "unix" are allowed)
+	$(error Invalid OSTYPE "$(CV_OSTYPE)"! Only "windows" and "unix" are allowed)
 endif
