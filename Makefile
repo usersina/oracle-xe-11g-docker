@@ -12,9 +12,12 @@ help:			## Show this help
 	@sed -ne '/@sed/!s/## //p' $(MAKEFILE_LIST)
 
 start: set_os		## Run Oracle and SQLDeveloper
-	docker compose --env-file conf/$(CV_OSTYPE).env up
+	docker compose --env-file conf/$(CV_OSTYPE).env up -d
 
-stop: set_os		## Stop Oracle and SQLDeveloper (WARNING - Deletes database)
+stop: set_os		## Stop Oracle and SQLDeveloper
+	docker compose --env-file conf/$(CV_OSTYPE).env stop
+
+delete: set_os		## Stop and remove containers and networks
 	docker compose --env-file conf/$(CV_OSTYPE).env down
 
 shell:			## Run a shell in the oracle container

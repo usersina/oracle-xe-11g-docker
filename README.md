@@ -13,14 +13,14 @@ The installation process has always been a bit of a hassle, especially consideri
 Having enrolled in an Engineering University for Computer science and not wanting to face the same experience again, I decided to run it all in docker containers and get on with life.
 And potentially helping people who face the same issue in the future.
 
-## I. Getting started
+## I. TODO: Refactoring: Getting started
 
-This guide was tested in windows with git bash and on Linux.
+This guide was tested on Windows with git bash and on Linux runing PopOS 22.04
 
 - First of all, create the directory `./tmp/sqldeveloper` in the current directory to persist the data in.
 
 ```bash
-mkdir -p ./tmp/sqldeveloper
+mkdir -p ./tmp/sqldeveloper ./tmp/oracle
 ```
 
 - **Windows:** Sharing a display from a Windows Host with `VcXsrv` is needed since SQLDeveloper is a GUI app. We need to set up a way to display it on the host from the container. For that, please follow [this short guide](https://dev.to/darksmile92/run-gui-app-in-linux-docker-container-on-windows-host-4kde).
@@ -92,7 +92,7 @@ user: system
 password: oracle
 ```
 
-- Unlocked HR account if you've followed the [unlocking HR step.](#1-unlocking-hr)
+- HR account if you've followed the [unlocking HR step.](#1-unlocking-hr)
 
 ```
 user: HR
@@ -104,7 +104,10 @@ password: oracle
 - **SQLDeveloper:** If you still have a "flashing screen" and the container exists, see the bottom section [docker hub link of sqldeveloper](https://hub.docker.com/r/marcelhuberfoo/sqldeveloper) to see how to solve it.
   You might also want to delete the `./tmp` directory if it was created by docker and create it yourself. To test, you can simply re-run `make start`
 
+- **Ports are not available:** Either the port is in use or it is excluded by the system. See [this](https://github.com/docker/for-win/issues/9272#issuecomment-731847321) and [most importantly this](https://superuser.com/a/1610009/1024072) for windows.
+
 ## Roadmap
 
 - [ ] [Add persistance for the database](https://stackoverflow.com/a/65409258/10543130)
-- [ ] [Auto detect platform](https://stackoverflow.com/questions/394230/how-to-detect-the-os-from-a-bash-script)
+- [x] [Auto detect platform](https://stackoverflow.com/questions/394230/how-to-detect-the-os-from-a-bash-script)
+- [ ] Expose a VNC Server instead of X11
