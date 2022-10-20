@@ -8,20 +8,23 @@
 ## 
 CV_OSTYPE = $(shell ./conf/get_os.sh)
 ## ----------------------------------------- Commands -----------------------------------------
-help:			## Show this help
+help:		## Show this help
 	@sed -ne '/@sed/!s/## //p' $(MAKEFILE_LIST)
 
-start: set_os		## Run Oracle and SQLDeveloper
-	docker compose --env-file conf/$(CV_OSTYPE).env up -d
+start:		## Run Oracle and SQLDeveloper
+	docker compose up -d
 
-stop: set_os		## Stop Oracle and SQLDeveloper
-	docker compose --env-file conf/$(CV_OSTYPE).env stop
+stop:		## Stop Oracle and SQLDeveloper
+	docker compose stop
 
-delete: set_os		## Stop and remove containers and networks
-	docker compose --env-file conf/$(CV_OSTYPE).env down --volumes
+delete:		## Stop and remove containers and networks
+	docker compose down --volumes
 
-shell:			## Run a shell in the oracle container
+shell:		## Run a shell in the oracle container
 	docker exec -it oracle-db /bin/bash
+
+sqlplus:	## Run an SQLPLUS instance directly in oracle
+	docker exec -it oracle-db sqlplus
 
 .DEFAULT:
 	@echo Unkown command $@, try make help

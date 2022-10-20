@@ -34,7 +34,9 @@ make stop
 Note that this will neither delete your OracleDB data nor your SQLDeveloper pereferences.
 In order to do just that, you would have to `make delete`.
 
-## II. Extra setup (TODO: Configure HR sample script)
+## II. Extra setup
+
+**NOTE: This is currently broken since HR does not exist and will be addressed in the future.**
 
 You might also want to unlock the HR account to have access to the [HR (or Human Resources) schema](https://www.webucator.com/article/oracles-demo-hr-schema/) which is just a collection of useful tables often used for testing.
 
@@ -103,4 +105,4 @@ password: oracle
 - [x] [Add persistance for the database](https://stackoverflow.com/a/65409258/10543130)
 - [x] [Auto detect platform](https://stackoverflow.com/questions/394230/how-to-detect-the-os-from-a-bash-script)
 - [x] Expose a VNC Server instead of X11
-- [ ] [Add sample data on init](https://hub.docker.com/r/gvenzl/oracle-xe)
+- [ ] [Add sample data and HR table on init](https://hub.docker.com/r/gvenzl/oracle-xe)
