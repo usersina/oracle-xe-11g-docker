@@ -18,7 +18,7 @@ stop: set_os		## Stop Oracle and SQLDeveloper
 	docker compose --env-file conf/$(CV_OSTYPE).env stop
 
 delete: set_os		## Stop and remove containers and networks
-	docker compose --env-file conf/$(CV_OSTYPE).env down
+	docker compose --env-file conf/$(CV_OSTYPE).env down --volumes
 
 shell:			## Run a shell in the oracle container
 	docker exec -it oracle-db /bin/bash

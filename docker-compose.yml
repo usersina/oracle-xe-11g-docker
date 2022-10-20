@@ -1,28 +1,33 @@
 version: '3.8'
 
 services:
-  oracle-db:
-    image: oracleinanutshell/oracle-xe-11g
-    container_name: oracle-db
+  oracledb:
+    image: gvenzl/oracle-xe:11
+    container_name: oracledb
     ports:
       - 1521:1521
     environment:
-      - ORACLE_ALLOW_REMOTE=true
-    # volumes: # Needs a custom image
-    #   - ./tmp/oracledb:/u01/app/oracle
+      - ORACLE_PASSWORD=oracle
+    volumes:
+      - oracle-data:/u01/app/oracle/oradata
     networks:
       - oracle
 
   sqldeveloper:
-    image: marcelhuberfoo/sqldeveloper
+    image: usersina/sqldeveloper
     container_name: sqldeveloper
-    environment:
-      - DISPLAY=${MY_DISPLAY}
+    ports:
+      - 5900:5900
     volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
-      - ./tmp/sqldeveloper:/data
+      - sqldeveloper-data:/data
     networks:
       - oracle
+
+volumes:
+  oracle-data:
+    driver: local
+  sqldeveloper-data:
+    driver: local
 
 networks:
   oracle:
