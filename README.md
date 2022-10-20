@@ -13,20 +13,9 @@ The installation process has always been a bit of a hassle, especially consideri
 Having enrolled in an Engineering University for Computer science and not wanting to face the same experience again, I decided to run it all in docker containers and get on with life.
 And potentially helping people who face the same issue in the future.
 
-## I. TODO: Refactoring: Getting started
+## I. Getting started
 
 This guide was tested on Windows with git bash and on Linux runing PopOS 22.04
-
-- First of all, create the directory `./tmp/sqldeveloper` in the current directory to persist the data in.
-
-```bash
-mkdir -p ./tmp/sqldeveloper ./tmp/oracle
-```
-
-- **Windows:** Sharing a display from a Windows Host with `VcXsrv` is needed since SQLDeveloper is a GUI app. We need to set up a way to display it on the host from the container. For that, please follow [this short guide](https://dev.to/darksmile92/run-gui-app-in-linux-docker-container-on-windows-host-4kde).
-- **Linux:** If you're using X11 (almost always the case), no extra steps are needed.
-
-- Run the contains with
 
 ```bash
 make start
@@ -36,13 +25,16 @@ And you're all good! Simply use the following credentials to connect to your ora
 
 ![sqldeveloper-login](./media/sqldeveloper-login.JPG)
 
-- To stop the containers, simply close the SQLDeveloper window and
+- To stop the containers, simply do a stop
 
 ```
 make stop
 ```
 
-## II. Extra setup
+Note that this will neither delete your OracleDB data nor your SQLDeveloper pereferences.
+In order to do just that, you would have to `make delete`.
+
+## II. Extra setup (TODO: Configure HR sample script)
 
 You might also want to unlock the HR account to have access to the [HR (or Human Resources) schema](https://www.webucator.com/article/oracles-demo-hr-schema/) which is just a collection of useful tables often used for testing.
 
@@ -108,6 +100,7 @@ password: oracle
 
 ## Roadmap
 
-- [ ] [Add persistance for the database](https://stackoverflow.com/a/65409258/10543130)
+- [x] [Add persistance for the database](https://stackoverflow.com/a/65409258/10543130)
 - [x] [Auto detect platform](https://stackoverflow.com/questions/394230/how-to-detect-the-os-from-a-bash-script)
-- [ ] Expose a VNC Server instead of X11
+- [x] Expose a VNC Server instead of X11
+- [ ] [Add sample data on init](https://hub.docker.com/r/gvenzl/oracle-xe)
