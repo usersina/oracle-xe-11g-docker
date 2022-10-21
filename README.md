@@ -2,8 +2,8 @@
 
 This repository contains the following components running inside docker containers:
 
-- [**Oracle xe 11g database**](https://www.oracle.com/technical-resources/articles/database/sql-11g-xe-quicktour.html) - ([docker image](https://hub.docker.com/r/oracleinanutshell/oracle-xe-11g))
-- [**SQLDeveloper from Oracle**](https://www.oracle.com/database/sqldeveloper/) - ([docker image](https://hub.docker.com/r/marcelhuberfoo/sqldeveloper))
+- [**Oracle xe 11g database**](https://www.oracle.com/technical-resources/articles/database/sql-11g-xe-quicktour.html) - ([docker image](https://hub.docker.com/r/gvenzl/oracle-xe))
+- [**SQLDeveloper from Oracle**](https://www.oracle.com/database/sqldeveloper/) - ([docker image](https://hub.docker.com/r/usersina/sqldeveloper))
 
 ## Motivation
 
