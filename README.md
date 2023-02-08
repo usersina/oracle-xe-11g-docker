@@ -13,65 +13,60 @@ The installation process has always been a bit of a hassle, especially consideri
 Having enrolled in an Engineering University for Computer science and not wanting to face the same experience again, I decided to run it all in docker containers and get on with life.
 And potentially helping people who face the same issue in the future.
 
+## Note
+
+I that it's not really that practical to run SQLDeveloper in a container (slight VNC server lags among other reasons) therefore I just ignore the service run by adding [`profiles[0]=donotstart`](./docker-compose.yml#26) to the service configuration.
+
+Now I simply use it to run **Oracle xe 11g** with the **HR** database.
+
 ## I. Getting started
 
 This guide was tested on Windows with git bash and on Linux runing PopOS 22.04
 
 ```bash
-make start
+make up
 ```
 
 And you're all good! Simply use the following credentials to connect to your oracle database from SQLDeveloper as shown in the screenshot with the password being `oracle`.
 
 ![sqldeveloper-login](./media/sqldeveloper-login.JPG)
 
-- To stop the containers, simply do a stop
+- To stop the containers without deleting any data
 
 ```
-make stop
+make down
 ```
 
 Note that this will neither delete your OracleDB data nor your SQLDeveloper pereferences.
-In order to do just that, you would have to `make delete`.
+In order to do just that, you would have to
+
+```bash
+make delete
+```
 
 ## II. Extra setup
-
-**NOTE: This is currently broken since HR does not exist and will be addressed in the future.**
 
 You might also want to unlock the HR account to have access to the [HR (or Human Resources) schema](https://www.webucator.com/article/oracles-demo-hr-schema/) which is just a collection of useful tables often used for testing.
 
 ### 1. Unlocking HR
 
-Enter into the running container with the system account
+HR and a bunch of other tables are now unlocked by default.
+
+To use it simply
+
+- Enter into the running container with the system account
 
 ```bash
 make shell
 ```
 
-Connect with the `system` user that has the password `oracle`
-
-```bash
-sqlplus system/oracle
-```
-
-Alter the account with
-
-```sql
-ALTER USER hr ACCOUNT UNLOCK;
-```
-
-```sql
-exit
-```
-
-Connect with the unlocked account
+- Connect with the HR account
 
 ```bash
 sqlplus HR/HR
 ```
 
-You will be prompted to change the password, simply type `oracle` for the new password.
-You can see the list of available tables with
+You can now run queries against the HR database
 
 ```SQL
 SELECT TABLE_NAME FROM USER_TABLES;
@@ -86,11 +81,11 @@ user: system
 password: oracle
 ```
 
-- HR account if you've followed the [unlocking HR step.](#1-unlocking-hr)
+- HR account
 
 ```
 user: HR
-password: oracle
+password: HR
 ```
 
 ## Troubleshooting
@@ -105,4 +100,4 @@ password: oracle
 - [x] [Add persistance for the database](https://stackoverflow.com/a/65409258/10543130)
 - [x] [Auto detect platform](https://stackoverflow.com/questions/394230/how-to-detect-the-os-from-a-bash-script)
 - [x] Expose a VNC Server instead of X11
-- [ ] [Add sample data and HR table on init](https://hub.docker.com/r/gvenzl/oracle-xe)
+- [x] [Add sample data and HR table on init](https://hub.docker.com/r/gvenzl/oracle-xe)
