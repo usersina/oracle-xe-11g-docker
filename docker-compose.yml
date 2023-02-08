@@ -4,32 +4,38 @@ services:
   oracledb:
     image: gvenzl/oracle-xe:11
     container_name: oracledb
+    volumes:
+      - oracle-data:/u01/app/oracle/oradata
+      - ./sql/db-sample-schemas-12.1.0.2:/u01/app/oracle/db-sample-schemas
+      - ./sql/init:/container-entrypoint-initdb.d
+    networks:
+      - oracle
     ports:
       - 1521:1521
     environment:
       - ORACLE_PASSWORD=oracle
-    volumes:
-      - oracle-data:/u01/app/oracle/oradata
-    networks:
-      - oracle
 
   sqldeveloper:
     image: usersina/sqldeveloper
     container_name: sqldeveloper
-    ports:
-      - 5900:5900
     volumes:
       - sqldeveloper-data:/data
     networks:
       - oracle
+    ports:
+      - 5900:5900
+    profiles:
+      - donotstart
 
 volumes:
   oracle-data:
+    name: "oracle-vol"
     driver: local
   sqldeveloper-data:
+    name: "sqldeveloper-vol"
     driver: local
 
 networks:
   oracle:
-    name: oracle-network
+    name: oracle-net
     driver: bridge
