@@ -74,6 +74,14 @@ SELECT TABLE_NAME FROM USER_TABLES;
 
 ## Accounts
 
+To connect to the database outside the docker network:
+
+```bash
+Hostname: localhost
+Port: 1521
+SID: xe
+```
+
 - Default system account
 
 ```
