@@ -1,5 +1,5 @@
 ## -----------------------------------------------------------------------------------------------
-## This is the Makefile which contains the recipies that define how to interact with the
+## This is the Makefile which contains the recipes that define how to interact with the
 ## repository's YAML files. Is is sort of a habit of mine to create a Makefile.
 ## 
 # ----------------------------------------- Variables -----------------------------------------
@@ -21,5 +21,5 @@ shell:		## Run a shell in the oracle container
 	docker exec -it oracledb /bin/bash
 
 .DEFAULT:
-	@echo Unkown command $@, try make help
+	@echo Unknown command $@, try make help
 
