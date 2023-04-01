@@ -1,13 +1,21 @@
-# Oracle with SQLDeveloper in Docker
+# Oracle xe 11g in Docker
 
 This repository contains the following components running inside docker containers:
 
 - [**Oracle xe 11g database**](https://www.oracle.com/technical-resources/articles/database/sql-11g-xe-quicktour.html) - ([docker image](https://hub.docker.com/r/gvenzl/oracle-xe))
-- [**SQLDeveloper from Oracle**](https://www.oracle.com/database/sqldeveloper/) - ([docker image](https://hub.docker.com/r/usersina/sqldeveloper))
+- ~~[**SQLDeveloper from Oracle**](https://www.oracle.com/database/sqldeveloper/) - ([docker image](https://hub.docker.com/r/usersina/sqldeveloper))~~
+
+Due to performance reasons, SQLDeveloper is not installed.
+It is easier to use [Oracle Developer Tools for VS Code](https://marketplace.visualstudio.com/items?itemName=Oracle.oracledevtools).
+
+## Main Features
+
+- Starter HR data is already configured
+- Database in container is fully stateful
 
 ## Motivation
 
-During my undergradute studies of computer science, I was required to use OracleDB for my SQL courses.
+During my undergraduate studies of computer science, I was required to use OracleDB for my SQL courses.
 The installation process has always been a bit of a hassle, especially considering the only available free version is the [11g version](https://www.oracle.com/database/technologies/xe-downloads.html) which is quite outdated by now.
 
 Having enrolled in an Engineering University for Computer science and not wanting to face the same experience again, I decided to run it all in docker containers and get on with life.
@@ -19,16 +27,17 @@ I that it's not really that practical to run SQLDeveloper in a container (slight
 
 Now I simply use it to run **Oracle xe 11g** with the **HR** database.
 
-## I. Getting started
+## Getting started
 
-This guide was tested on Windows with git bash and on Linux runing PopOS 22.04
+This guide was tested on Windows with git bash and on Linux running PopOS 22.04
 
 ```bash
 make up
 ```
 
-And you're all good! Simply use the following credentials to connect to your oracle database from SQLDeveloper as shown in the screenshot with the password being `oracle`.
+And you're all good! Simply use the following credentials to connect to your oracle database as shown in the screenshot with the password being `oracle`.
 
+E.g. logging in with SQLDeveloper
 ![sqldeveloper-login](./media/sqldeveloper-login.JPG)
 
 - To stop the containers without deleting any data
@@ -43,6 +52,12 @@ In order to do just that, you would have to
 ```bash
 make delete
 ```
+
+## Initializing databases
+
+<details>
+
+<summary>This step is not needed anymore since it's added to the compose file.</summary>
 
 ## II. Extra setup
 
@@ -72,6 +87,8 @@ You can now run queries against the HR database
 SELECT TABLE_NAME FROM USER_TABLES;
 ```
 
+</details>
+
 ## Accounts
 
 To connect to the database outside the docker network:
@@ -89,7 +106,7 @@ user: system
 password: oracle
 ```
 
-- HR account
+- HR account (password is case sensitive)
 
 ```
 user: HR
