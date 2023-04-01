@@ -33,6 +33,9 @@ This guide was tested on Windows with git bash and on Linux running PopOS 22.04
 
 ```bash
 make up
+
+# This might take a while, tail the logs with
+docker logs -f oracledb
 ```
 
 And you're all good! Simply use the following credentials to connect to your oracle database as shown in the screenshot with the password being `oracle`.
