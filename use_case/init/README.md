@@ -3,7 +3,7 @@
 1. Copy the init sql files in the running `oracledb` container
 
 ```bash
-docker cp ./northwind_data.sql oracledb:/u01/app/oracle/use_case
+docker cp . oracledb:/u01/app/oracle/use_case/
 ```
 
 2. Run a shell instance to the database
@@ -28,7 +28,7 @@ SQL> CREATE USER NORTHWIND IDENTIFIED BY NORTHWIND;
 SQL> GRANT CONNECT, RESOURCE, DBA TO NORTHWIND;
 
 -- switch to the created user
-SQL> CONNECT NORTHWIND
+SQL> CONNECT NORTHWIND;
 
 -- run the sql script as the new user
 SQL> @/u01/app/oracle/use_case/northwind_data.sql
