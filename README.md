@@ -40,8 +40,7 @@ docker logs -f oracledb
 
 And you're all good! Simply use the following credentials to connect to your oracle database as shown in the screenshot with the password being `oracle`.
 
-E.g. logging in with SQLDeveloper
-![sqldeveloper-login](./media/sqldeveloper-login.JPG)
+![sqldeveloper-login](./media/vscode-oracle-login.png)
 
 - To stop the containers without deleting any data
 
